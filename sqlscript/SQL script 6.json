@@ -2,7 +2,7 @@
 	"name": "SQL script 6",
 	"properties": {
 		"content": {
-			"query": "SELECT TOP (100) [AverageEngineTemperature]\n,[AverageSpeed]\n,[Snapshot]\n FROM [dbo].[VehicleAverages]",
+			"query": "SELECT TOP (50) [AverageEngineTemperature]\n,[AverageSpeed]\n,[Snapshot]\n FROM [dbo].[VehicleAverages]",
 			"metadata": {
 				"language": "sql"
 			},
