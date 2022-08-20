@@ -1,0 +1,38 @@
+{
+	"name": "Dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Parquet1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          TransactionId as string,",
+				"          CustomerId as integer,",
+				"          ProductId as short,",
+				"          Quantity as byte,",
+				"          Price as decimal(38,18),",
+				"          TotalAmount as decimal(38,18),",
+				"          TransactionDate as integer,",
+				"          ProfitAmount as decimal(38,18),",
+				"          Hour as byte,",
+				"          Minute as byte,",
+				"          StoreId as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> source1"
+			]
+		}
+	}
+}
