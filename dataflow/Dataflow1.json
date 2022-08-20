@@ -12,8 +12,20 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "CSVMarcelo",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          TransactionId as string,",
@@ -31,7 +43,41 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     format: 'parquet') ~> source1"
+				"     format: 'parquet') ~> source1",
+				"source1 select(mapColumn(",
+				"          TransactionId,",
+				"          CustomerId,",
+				"          ProductId,",
+				"          Quantity,",
+				"          Price,",
+				"          TotalAmount,",
+				"          TransactionDate,",
+				"          ProfitAmount,",
+				"          Hour,",
+				"          StoreId",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          TransactionId as string,",
+				"          CustomerId as string,",
+				"          ProductId as string,",
+				"          Quantity as string,",
+				"          Price as string,",
+				"          TotalAmount as string,",
+				"          TransactionDate as string,",
+				"          ProfitAmount as string,",
+				"          Hour as string,",
+				"          Minute as string,",
+				"          StoreId as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
